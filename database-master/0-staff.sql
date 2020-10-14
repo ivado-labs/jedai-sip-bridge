@@ -1,0 +1,9 @@
+SET NAMES 'utf8';
+
+CREATE TABLE IF NOT EXISTS staff
+(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    emp_number VARCHAR(20),
+    phone VARCHAR(15)
+);
