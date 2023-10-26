@@ -1,23 +1,27 @@
 package org.chusj.crhsj.sip_bridge.service;
 
 import java.math.BigInteger;
-import org.chusj.crhsj.sip_bridge.dao.ProcedureDao;
-import org.chusj.crhsj.sip_bridge.entities.Procedure;
+import java.util.List;
+import org.chusj.crhsj.sip_bridge.sip.repository.ProcedureRepository;
+import org.chusj.crhsj.sip_bridge.sip.entities.Procedure;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProcedureService {
-  private final ProcedureDao procedureDao;
+  private final ProcedureRepository procedureRepository;
 
-  public ProcedureService(ProcedureDao procedureDao) {
-    this.procedureDao = procedureDao;
+  public ProcedureService(ProcedureRepository procedureRepository) {
+    this.procedureRepository = procedureRepository;
   }
 
-  public Procedure findProcedureWithCodeByEncounterId(BigInteger encounterId, String code) {
-    return procedureDao.findProceduresByEncounterIdAndCode(encounterId, code);
+  public Procedure findLatestProcedureByEncounterIdAndCode(BigInteger encounterId, String code) {
+    return procedureRepository.findLatestProcedureByEncounterIdAndCode(encounterId, code);
+  }
+  public Procedure findLatestProcedureWithCodeAndPatientId(BigInteger patientId, String code) {
+    return procedureRepository.findLatestProcedureWithCodeAndPatientId(patientId, code);
+  }
+  public List<Procedure> findProceduresWithCodeAndPatientId(BigInteger patientId, String code) {
+    return procedureRepository.findProceduresWithCodeAndPatientId(patientId, code);
   }
 
-  public Procedure findProcedureWithCodeByPatientId(BigInteger patientId, String code) {
-    return procedureDao.findProceduresByPatientIdAndCode(patientId, code);
-  }
 }

@@ -1,0 +1,7 @@
+###
+GET http://localhost:80/sip-bridge/getAdtPatient?patientIdentifier=2019754
+Content-Type: application/json
+
+###
+GET http://localhost:80/sip-bridge/getLatestEncounterByPatientId?patientId=2240078
+Content-Type: application/json

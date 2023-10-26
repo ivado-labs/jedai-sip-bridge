@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: db/sip/changelog/V001__database_init.sql
+  - include:
+      file: db/sip/changelog/V002__load_initial_data.xml

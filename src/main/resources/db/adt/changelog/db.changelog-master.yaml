@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: db/adt/changelog/V001__database_init.sql
+  - include:
+      file: db/adt/changelog/V002__load_initial_data.xml

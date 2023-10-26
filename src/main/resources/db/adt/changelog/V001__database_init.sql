@@ -1,0 +1,50 @@
+--liquibase formatted sql
+
+--changeset tiaede00:1
+create table alsere_usagers
+(
+    Dossier           int          not null
+        primary key,
+    NaissanceNom      varchar(255) null,
+    NaissancePrenom   varchar(255) null,
+    NaissanceDate     varchar(255) null,
+    Sexe              varchar(255) null,
+    Nam               varchar(255) null,
+    NamExpiration     varchar(255) null,
+    NamRegieId        varchar(255) null,
+    PereNom           varchar(255) null,
+    PerePrenom        varchar(255) null,
+    MereNom           varchar(255) null,
+    MerePrenom        varchar(255) null,
+    ConjointNom       varchar(255) null,
+    ConjointPrenom    varchar(255) null,
+    Adresse           varchar(255) null,
+    Ville             varchar(255) null,
+    Province          varchar(255) null,
+    Pays              varchar(255) null,
+    CodePostal        varchar(255) null,
+    TelDomicile       varchar(255) null,
+    TelBureau         varchar(255) null,
+    TelAutre          varchar(255) null,
+    EtatCivilId       varchar(255) null,
+    DecesFlag         int          null,
+    DecesDate         varchar(255) null,
+    DecesLieuId       varchar(255) null,
+    NationaliteId     varchar(255) null,
+    LangueId          varchar(255) null,
+    ReligionId        varchar(255) null,
+    EthnieId          varchar(255) null,
+    MunicipaliteId    int          null,
+    RegionId          int          null,
+    ImmigrantStatutId varchar(255) null,
+    ImmigrantDate     varchar(255) null,
+    ConfidentielFlag  int          null,
+    NoteId            int          null,
+    DossierFusionne   varchar(255) null,
+    IndSuppression    int          null,
+    HoroDateCreation  varchar(255) null,
+    HoroDateMAJ       varchar(255) null,
+    UtilisateurMAJ    varchar(255) null,
+    constraint Dossier_UNIQUE
+        unique (Dossier)
+);
