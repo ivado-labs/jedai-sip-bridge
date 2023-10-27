@@ -21,7 +21,10 @@
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <liquibase-maven-plugin.version>3.8.9</liquibase-maven-plugin.version>
         <springdoc-openapi-ui.version>1.5.0</springdoc-openapi-ui.version>
+        <liquibase-hibernate5.version>3.8</liquibase-hibernate5.version>
+        <validation-api.version>2.0.1.Final</validation-api.version>
         <heroku-maven-plugin.version>3.0.4</heroku-maven-plugin.version>
         <mysql.version>8.0.22</mysql.version>
     </properties>
@@ -66,9 +69,9 @@
     <!-- Package as an executable jar -->
     <build>
         <finalName>${app.name}</finalName>
-        <!--<filters>
+        <filters>
             <filter>src/main/filters/${activated-profile}.properties</filter>
-        </filters>-->
+        </filters>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -90,15 +93,31 @@
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
+                <version>${liquibase.version}</version>
                 <configuration>
                     <propertyFile>${project.build.directory}\classes\application.properties</propertyFile>
                 </configuration>
                 <dependencies>
+                   <dependency>
+                        <groupId>org.liquibase.ext</groupId>
+                        <artifactId>liquibase-hibernate5</artifactId>
+                        <version>${liquibase-hibernate5.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-data-jpa</artifactId>
+                        <version>${project.parent.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>javax.validation</groupId>
+                        <artifactId>validation-api</artifactId>
+                        <version>${validation-api.version}</version>
+                    </dependency>
                 </dependencies>
             </plugin>
         </plugins>
     </build>
-    <!--<profiles>
+    <profiles>
         <profile>
             <id>dev</id>
             <activation>
@@ -114,5 +133,5 @@
                 <activated-profile>prod</activated-profile>
             </properties>
         </profile>
-    </profiles>-->
+    </profiles>
 </project>
