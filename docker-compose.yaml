@@ -1,0 +1,47 @@
+version: "3.8"
+services:
+  database:
+    image: mysql:8.2.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD : "iccadar"
+    healthcheck:
+      test: "mysql --host=localhost --port=3306 --user=root --password=iccadar --execute='SELECT 1;' mysql"
+      interval: 60s
+      timeout: 10s
+      retries: 50
+      start_period: 90s # Database initialization can be very slow on networked disks.
+
+  mock_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT:-8080}:${PORT:-8080}"
+    environment:
+      PORT: "${PORT:-8080}"
+      SIP_DATASOURCE_URL: "jdbc:mysql://database/sip_bridge?serverTimezone=Canada/Eastern&createDatabaseIfNotExist=true"
+      SIP_DATASOURCE_USERNAME: "root"
+      SIP_DATASOURCE_PASSWORD: "iccadar"
+      ADT_DATASOURCE_URL: "jdbc:mysql://database:3306/portail?serverTimezone=Canada/Eastern&createDatabaseIfNotExist=true"
+      ADT_DATASOURCE_USERNAME: "root"
+      ADT_DATASOURCE_PASSWORD: "iccadar"
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:${PORT:-8080}/actuator/health",
+        ]
+      interval: 60s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    depends_on:
+      database:
+        condition: service_healthy
