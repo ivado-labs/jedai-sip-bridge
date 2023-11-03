@@ -12,16 +12,11 @@
 package org.chusj.crhsj.sip_bridge.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.PostLoad;
-import javax.persistence.Transient;
+import javax.persistence.*;
+
 import org.chusj.crhsj.sip_bridge.entities.converters.IdentifierConverter;
 
 @Entity
@@ -46,6 +41,8 @@ public class Patient {
   @OneToOne
   @JoinColumn(name = "general_practitioner", referencedColumnName = "id")
   private Practitioner generalPractitioner;
+  @Column(precision = 2, scale = 0)
+  private BigDecimal weight;
 
   public Long getId() {
     return id;
@@ -95,6 +92,14 @@ public class Patient {
     this.patientIdentifier = patientIdentifier;
   }
 
+  public BigDecimal getWeight() {
+    return weight;
+  }
+
+  public void setWeight(BigDecimal weight) {
+    this.weight = weight;
+  }
+
   @PostLoad
   void postLoad() {
     var codeableConcept = new CodeableConcept();
@@ -102,6 +107,5 @@ public class Patient {
     codeableConcept.setDisplay(PATIENT_HOSPITAL_NUMBER_DESCRIPTION);
     patientIdentifier.setType(codeableConcept);
   }
-
 
 }

@@ -7,10 +7,12 @@ import java.math.BigInteger;
 import org.chusj.crhsj.sip_bridge.entities.Quantis;
 import org.chusj.crhsj.sip_bridge.service.QuantisService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("${api.base-path}")
 public class QuantisController {
   private final QuantisService quantisService;
 

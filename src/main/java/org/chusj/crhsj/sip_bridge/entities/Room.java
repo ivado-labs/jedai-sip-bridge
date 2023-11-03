@@ -15,6 +15,8 @@ public class Room {
   private int displayNumber;
   private String label;
 
+  private int extension;
+
   public long getId() {
     return id;
   }
@@ -37,5 +39,13 @@ public class Room {
 
   public void setLabel(String label) {
     this.label = label;
+  }
+
+  public int getExtension() {
+    return extension;
+  }
+
+  public void setExtension(int extension) {
+    this.extension = extension;
   }
 }

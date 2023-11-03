@@ -10,6 +10,7 @@ create table room (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     display_number INT,
     label varchar(255),
+    extension INT,
     unique (display_number,label)
 );
 
@@ -56,6 +57,7 @@ create table patient (
     name INT,
     birth_date DATE,
     general_practitioner INT,
+    weight DECIMAL(2,0),
     UNIQUE (patient_identifier),
     FOREIGN KEY (name) REFERENCES human_name(id),
     FOREIGN KEY (general_practitioner) REFERENCES practitioner(id)

@@ -1,0 +1,46 @@
+version: "3.8"
+services:
+  database:
+    image: mysql:8.2.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE : "sip_bridge"
+      MYSQL_USER : "${MYSQL_USER:-username}"
+      MYSQL_PASSWORD : "${MYSQL_PASSWORD:-password}"
+      MYSQL_ROOT_PASSWORD : "iccadar"
+    healthcheck:
+      test: "mysql --host=localhost --port=3306 --user=${MYSQL_USER:-username} --password=${MYSQL_PASSWORD:-password} --execute='SELECT 1;' sip_bridge"
+      interval: 60s
+      timeout: 10s
+      retries: 50
+      start_period: 90s # Database initialization can be very slow on networked disks.
+
+  mock_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT:-8080}:${PORT:-8080}"
+    environment:
+      PORT: "${PORT:-8080}"
+      SIP_DATASOURCE_URL: "jdbc:mysql://database/sip_bridge?serverTimezone=Canada/Eastern&createDatabaseIfNotExist=true"
+      SIP_DATASOURCE_USERNAME: "${MYSQL_USER:-username}"
+      SIP_DATASOURCE_PASSWORD: "${MYSQL_PASSWORD:-password}"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:${PORT:-8080}/actuator/health",
+        ]
+      interval: 60s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    depends_on:
+      database:
+        condition: service_healthy
