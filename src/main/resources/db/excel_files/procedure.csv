@@ -2,7 +2,7 @@ id,coding,encounter,issued,value,unit
 1,8,2,2020-03-13 11:18:02,Contact plus,
 2,8,3,2020-03-14 10:18:58,Contact,
 3,9,4,2020-03-15 01:18:20,Ventillation non-invasive,
-4,8,6,2020-03-16 09:18:01,Contact,
+4,9,6,2020-03-16 09:18:01,Ventillation non-invasive,
 5,9,7,2020-03-17 10:18:02,Ventillation non-invasive : lunette nasale haut débit,
 6,8,8,2020-03-18 09:18:01,Goutelletes Contact,
 7,9,9,2020-03-19 14:18:05,Ventilation invasive : haute fréquence,
