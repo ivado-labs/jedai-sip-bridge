@@ -7,7 +7,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD : "iccadar"
     healthcheck:
-      test: "mysql --host=localhost --port=3306 --user=root --password=iccadar --execute='SELECT 1;' mysql"
+      test: "mysql --host=127.0.0.1 --port=3306 --user=root --password=iccadar --execute='SELECT 1;' mysql"
       interval: 60s
       timeout: 10s
       retries: 50
