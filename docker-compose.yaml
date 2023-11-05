@@ -10,7 +10,7 @@ services:
       MYSQL_PASSWORD : "${MYSQL_PASSWORD:-password}"
       MYSQL_ROOT_PASSWORD : "iccadar"
     healthcheck:
-      test: "mysql --host=localhost --port=3306 --user=${MYSQL_USER:-username} --password=${MYSQL_PASSWORD:-password} --execute='SELECT 1;' sip_bridge"
+      test: "mysql --host=127.0.0.1 --port=3306 --user=${MYSQL_USER:-username} --password=${MYSQL_PASSWORD:-password} --execute='SELECT 1;' sip_bridge"
       interval: 60s
       timeout: 10s
       retries: 50
